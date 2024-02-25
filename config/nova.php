@@ -203,4 +203,14 @@ return [
         'stopped' => '/',
     ],
 
+    // config/nova.php
+
+    'vendors' => [
+        'collapsible_resource_manager' => [
+            'move_user_menu' => false,
+            'move_theme_switcher' => false,
+            'move_notification_center' => false
+        ]
+    ]
+
 ];
