@@ -52,67 +52,67 @@ return [
 
     'permissions' => [
 
-        //users
+        //user
 
-        'view users' => [
-            'display_name' => 'View users',
-            'description' => 'Can view users',
+        'view user' => [
+            'display_name' => 'View user',
+            'description' => 'Can view user',
             'group' => 'User',
         ],
 
-        'create users' => [
-            'display_name' => 'Create users',
-            'description' => 'Can create users',
+        'create user' => [
+            'display_name' => 'Create user',
+            'description' => 'Can create user',
             'group' => 'User',
         ],
 
-        'edit users' => [
-            'display_name' => 'Edit users',
-            'description' => 'Can edit users',
+        'edit user' => [
+            'display_name' => 'Edit user',
+            'description' => 'Can edit user',
             'group' => 'User',
         ],
 
-        'delete users' => [
-            'display_name' => 'Delete users',
-            'description' => 'Can delete users',
+        'delete user' => [
+            'display_name' => 'Delete user',
+            'description' => 'Can delete user',
             'group' => 'User',
         ],
 
-        'restore users' => [
-            'display_name' => 'Restore users',
-            'description' => 'Can restore users',
+        'restore user' => [
+            'display_name' => 'Restore user',
+            'description' => 'Can restore user',
             'group' => 'User',
         ],
 
-        //roles
+        //role
 
-        'view roles' => [
-            'display_name' => 'View roles',
-            'description' => 'Can view roles',
+        'view role' => [
+            'display_name' => 'View role',
+            'description' => 'Can view role',
             'group' => 'Role',
         ],
 
-        'create roles' => [
-            'display_name' => 'Create roles',
-            'description' => 'Can create roles',
+        'create role' => [
+            'display_name' => 'Create role',
+            'description' => 'Can create role',
             'group' => 'Role',
         ],
 
-        'edit roles' => [
-            'display_name' => 'Edit roles',
-            'description' => 'Can edit roles',
+        'edit role' => [
+            'display_name' => 'Edit role',
+            'description' => 'Can edit role',
             'group' => 'Role',
         ],
 
-        'delete roles' => [
-            'display_name' => 'Delete roles',
-            'description' => 'Can delete roles',
+        'delete role' => [
+            'display_name' => 'Delete role',
+            'description' => 'Can delete role',
             'group' => 'Role',
         ],
 
-        'restore roles' => [
-            'display_name' => 'Restore roles',
-            'description' => 'Can restore roles',
+        'restore role' => [
+            'display_name' => 'Restore role',
+            'description' => 'Can restore role',
             'group' => 'Role',
         ],
     ],
