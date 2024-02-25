@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Helpers;
-use App\Models\User;
+
+use App\Nova\User;
 use Laravel\Nova\Nova;
 
 class CoreHelper

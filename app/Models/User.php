@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,6 +19,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use HasRoles, Notifiable;
     use TwoFactorAuthenticatable;
+    use CreatedUpdatedBy;
 
     /**
      * The attributes that are mass assignable.
@@ -59,5 +61,15 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function createdBy()
+    {
+        return $this->hasOne(User::class, 'id', 'created_by');
+    }
+
+    public function updatedBy()
+    {
+        return $this->hasOne(User::class, 'id', 'updated_by');
+    }
 
 }
