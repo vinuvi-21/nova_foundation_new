@@ -11,9 +11,12 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Pktharindu\NovaPermissions\Traits\HasRoles;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class User extends Authenticatable
 {
+    use LogsActivity;
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
@@ -31,6 +34,8 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    protected static $logAttributes = ['name', 'email'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -61,6 +66,11 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logOnly(['*']);
+    }
 
     public function createdBy()
     {
