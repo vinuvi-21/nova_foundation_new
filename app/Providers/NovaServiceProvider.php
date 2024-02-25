@@ -68,6 +68,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             new \Pktharindu\NovaPermissions\NovaPermissions(),
+            new \Bolechen\NovaActivitylog\NovaActivitylog(),
         ];
     }
 
