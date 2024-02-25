@@ -2,12 +2,16 @@
 
 namespace App\Nova;
 
+use App\Helpers\CoreHelper;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Line;
 use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Stack;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -65,6 +69,17 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', Rules\Password::defaults())
                 ->updateRules('nullable', Rules\Password::defaults()),
+
+            Stack::make('Created By', [
+                Line::make('Created By', function ($model) {
+                    return CoreHelper::getCreatedBy($model);
+                })
+                    ->asHeading()
+                    ->asHtml(),
+                Line::make('Created Time', function ($model) {
+                    return Carbon::parse($model->created_at)?->diffForHumans() ?? '-';
+                })->asSmall()
+            ]),
 
             BelongsToMany::make('Roles', 'roles', \Pktharindu\NovaPermissions\Nova\Role::class),
         ];
