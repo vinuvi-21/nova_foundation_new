@@ -7,6 +7,7 @@ use App\Nova\Role;
 use App\Nova\User;
 use Bolechen\NovaActivitylog\Resources\Activitylog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Menu\MenuGroup;
 use Laravel\Nova\Menu\MenuItem;
@@ -26,6 +27,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         parent::boot();
         Nova::withBreadcrumbs();
         $this->getCustomeMenu();
+
+        Nova::footer(function ($request) {
+            return Blade::render('
+                <center>Copyright &copy; ' . now()->year . ' <a href="https://web.facebook.com/shehan.saralk/" target="blank"> <font color="red"> Shehan Rashmika. </font></a> All Rights Reserved.<br/>Built upon the Nova Startup Foundation. Crafted with boundless love for the world.</center>
+            ');
+        });
     }
 
     /**
