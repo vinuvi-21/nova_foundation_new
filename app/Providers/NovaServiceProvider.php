@@ -15,6 +15,8 @@ use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
+use App\Nova\Product;
+
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
     /**
@@ -124,6 +126,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         MenuItem::resource(Role::class)->icon('key'),
                     ]),
                 ])->icon('users'),
+
+                MenuSection::make('Products', [
+    MenuGroup::make('All Products', [
+        MenuItem::resource(Product::class)->icon('shopping-cart'),
+    ]),
+])->icon('shopping-cart'),
 
 
             ];

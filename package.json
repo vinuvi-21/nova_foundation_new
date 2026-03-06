@@ -3,7 +3,21 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "build-my-card": "cd nova-components/MyCard && npm run dev",
+        "build-my-card-prod": "cd nova-components/MyCard && npm run prod",
+        "build-stats-card": "cd nova-components/StatsCard && npm run dev",
+        "build-stats-card-prod": "cd nova-components/StatsCard && npm run prod",
+        "build-chart-card": "cd nova-components/ChartCard && npm run dev",
+        "build-chart-card-prod": "cd nova-components/ChartCard && npm run prod",
+        "build-welcome-card": "cd nova-components/WelcomeCard && npm run dev",
+        "build-welcome-card-prod": "cd nova-components/WelcomeCard && npm run prod",
+        "build-product-stats": "cd nova-components/ProductStats && npm run dev",
+        "build-product-stats-prod": "cd nova-components/ProductStats && npm run prod",
+        "build-color-picker": "cd nova-components/ColorPicker && npm run dev",
+        "build-color-picker-prod": "cd nova-components/ColorPicker && npm run prod",
+        "build-reports": "cd nova-components/Reports && npm run dev",
+        "build-reports-prod": "cd nova-components/Reports && npm run prod"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
