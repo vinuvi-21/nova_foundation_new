@@ -25,7 +25,8 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       activeFilter: 'rating',
       chartInstance: null,
       selectedProducts: [],
-      selectedRating: null
+      selectedRating: null,
+      selectedLabel: null
     };
   },
   mounted: function mounted() {
@@ -65,11 +66,24 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                 options: {
                   responsive: true,
                   onClick: function onClick(event, elements) {
-                    if (elements.length > 0 && _this.activeFilter === 'rating') {
+                    if (elements.length > 0) {
                       var index = elements[0].index;
                       var label = data.labels[index];
-                      var rating = parseInt(label);
-                      _this.fetchProducts(rating);
+                      if (_this.activeFilter === 'rating') {
+                        var rating = parseInt(label);
+                        _this.fetchProductsByRating(rating);
+                      } else if (_this.activeFilter === 'stock') {
+                        if (label.includes('High')) {
+                          _this.fetchProductsByStock('high');
+                        } else if (label.includes('Low')) {
+                          _this.fetchProductsByStock('low');
+                        } else {
+                          _this.fetchProductsByStock('out');
+                        }
+                      } else if (_this.activeFilter === 'top_rated') {
+                        var _rating = parseInt(label);
+                        _this.fetchProductsByTopRated(_rating);
+                      }
                     }
                   },
                   plugins: {
@@ -85,7 +99,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
         }, _callee);
       }))();
     },
-    fetchProducts: function fetchProducts(rating) {
+    fetchProductsByRating: function fetchProductsByRating(rating) {
       var _this2 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
         var response, data;
@@ -93,6 +107,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
           while (1) switch (_context2.n) {
             case 0:
               _this2.selectedRating = rating;
+              _this2.selectedLabel = rating + ' Star';
               _context2.n = 1;
               return fetch("/api/products-by-rating?rating=".concat(rating));
             case 1:
@@ -106,6 +121,53 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
               return _context2.a(2);
           }
         }, _callee2);
+      }))();
+    },
+    fetchProductsByStock: function fetchProductsByStock(level) {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var response, data;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
+            case 0:
+              _context3.n = 1;
+              return fetch("/api/products-by-stock?level=".concat(level));
+            case 1:
+              response = _context3.v;
+              _context3.n = 2;
+              return response.json();
+            case 2:
+              data = _context3.v;
+              _this3.selectedLabel = data.label;
+              _this3.selectedProducts = data.products;
+            case 3:
+              return _context3.a(2);
+          }
+        }, _callee3);
+      }))();
+    },
+    fetchProductsByTopRated: function fetchProductsByTopRated(rating) {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var response, data;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.n) {
+            case 0:
+              _this4.selectedRating = rating;
+              _this4.selectedLabel = rating + ' Star';
+              _context4.n = 1;
+              return fetch("/api/products-by-top-rated?rating=".concat(rating));
+            case 1:
+              response = _context4.v;
+              _context4.n = 2;
+              return response.json();
+            case 2:
+              data = _context4.v;
+              _this4.selectedProducts = data.products;
+            case 3:
+              return _context4.a(2);
+          }
+        }, _callee4);
       }))();
     }
   }
@@ -186,7 +248,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $options.loadChart('top_rated');
         }),
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$data.activeFilter === 'top_rated' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700', "px-3 py-1 rounded text-sm font-medium"])
-      }, " Top Rated ", 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Chart and Table side by side "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pie Chart "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("canvas", _hoisted_5, null, 512 /* NEED_PATCH */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Product Table "), $data.selectedProducts.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_7, " ★ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedRating) + " Star Products (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedProducts.length) + ") ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_8, [_cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", {
+      }, " Top Rated ", 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Chart and Table side by side "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pie Chart "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("canvas", _hoisted_5, null, 512 /* NEED_PATCH */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Product Table "), $data.selectedProducts.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedLabel) + " Products (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedProducts.length) + ") ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_8, [_cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", {
         "class": "bg-gray-100"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
         "class": "px-2 py-1 text-left"
