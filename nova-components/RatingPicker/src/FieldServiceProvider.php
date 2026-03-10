@@ -1,6 +1,6 @@
 <?php
 
-namespace User\ColorPicker;
+namespace MyApp\RatingPicker;
 
 use Illuminate\Support\ServiceProvider;
 
