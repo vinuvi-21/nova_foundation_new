@@ -23,7 +23,9 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
   data: function data() {
     return {
       activeFilter: 'rating',
-      chartInstance: null
+      chartInstance: null,
+      selectedProducts: [],
+      selectedRating: null
     };
   },
   mounted: function mounted() {
@@ -38,6 +40,8 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
           while (1) switch (_context.n) {
             case 0:
               _this.activeFilter = filter;
+              _this.selectedProducts = [];
+              _this.selectedRating = null;
               _context.n = 1;
               return fetch("/api/chart-data?filter=".concat(filter));
             case 1:
@@ -60,6 +64,14 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                 },
                 options: {
                   responsive: true,
+                  onClick: function onClick(event, elements) {
+                    if (elements.length > 0 && _this.activeFilter === 'rating') {
+                      var index = elements[0].index;
+                      var label = data.labels[index];
+                      var rating = parseInt(label);
+                      _this.fetchProducts(rating);
+                    }
+                  },
                   plugins: {
                     legend: {
                       position: 'bottom'
@@ -71,6 +83,29 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
               return _context.a(2);
           }
         }, _callee);
+      }))();
+    },
+    fetchProducts: function fetchProducts(rating) {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var response, data;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              _this2.selectedRating = rating;
+              _context2.n = 1;
+              return fetch("/api/products-by-rating?rating=".concat(rating));
+            case 1:
+              response = _context2.v;
+              _context2.n = 2;
+              return response.json();
+            case 2:
+              data = _context2.v;
+              _this2.selectedProducts = data.products;
+            case 3:
+              return _context2.a(2);
+          }
+        }, _callee2);
       }))();
     }
   }
@@ -98,15 +133,43 @@ var _hoisted_2 = {
   "class": "flex justify-center mb-4 gap-2"
 };
 var _hoisted_3 = {
+  "class": "flex gap-4"
+};
+var _hoisted_4 = {
+  "class": "w-1/2"
+};
+var _hoisted_5 = {
   ref: "chart"
+};
+var _hoisted_6 = {
+  key: 0,
+  "class": "w-1/2"
+};
+var _hoisted_7 = {
+  "class": "text-lg font-medium text-gray-600 mb-2"
+};
+var _hoisted_8 = {
+  "class": "w-full text-sm"
+};
+var _hoisted_9 = {
+  "class": "px-2 py-1"
+};
+var _hoisted_10 = {
+  "class": "px-2 py-1"
+};
+var _hoisted_11 = {
+  "class": "px-2 py-1"
+};
+var _hoisted_12 = {
+  "class": "px-2 py-1"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Card = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Card", true);
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Card, {
-    "class": "flex flex-col items-center justify-center p-4"
+    "class": "flex flex-col p-4"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Title "), _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Title "), _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
         "class": "text-center text-xl text-gray-500 font-light mb-4"
       }, " Product Chart ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Filter Buttons "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
         onClick: _cache[0] || (_cache[0] = function ($event) {
@@ -123,7 +186,26 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $options.loadChart('top_rated');
         }),
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$data.activeFilter === 'top_rated' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700', "px-3 py-1 rounded text-sm font-medium"])
-      }, " Top Rated ", 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Chart "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("canvas", _hoisted_3, null, 512 /* NEED_PATCH */)])];
+      }, " Top Rated ", 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Chart and Table side by side "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pie Chart "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("canvas", _hoisted_5, null, 512 /* NEED_PATCH */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Product Table "), $data.selectedProducts.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_7, " ★ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedRating) + " Star Products (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedProducts.length) + ") ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_8, [_cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", {
+        "class": "bg-gray-100"
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        "class": "px-2 py-1 text-left"
+      }, "ID"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        "class": "px-2 py-1 text-left"
+      }, "Name"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        "class": "px-2 py-1 text-left"
+      }, "Price"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+        "class": "px-2 py-1 text-left"
+      }, "Stock")])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.selectedProducts, function (product) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+          key: product.id,
+          "class": "border-b border-gray-100"
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_11, "$" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.price), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.stock), 1 /* TEXT */)]);
+      }), 128 /* KEYED_FRAGMENT */))])])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+        key: 1
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Placeholder when no slice clicked "), _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+        "class": "w-1/2 flex items-center justify-center text-gray-400 text-sm"
+      }, " Click a slice to see products ", -1 /* CACHED */))], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))])])];
     }),
     _: 1 /* STABLE */
   });
