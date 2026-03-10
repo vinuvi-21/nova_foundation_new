@@ -42,9 +42,9 @@
 
         <!-- Product Table -->
         <div class="w-1/2" v-if="selectedProducts.length > 0">
-          <h2 class="text-lg font-medium text-gray-600 mb-2">
-            &#9733; {{ selectedRating }} Star Products ({{ selectedProducts.length }})
-          </h2>
+         <h2 class="text-lg font-medium text-gray-600 mb-2">
+    {{ selectedLabel }} Products ({{ selectedProducts.length }})
+</h2>
           <table class="w-full text-sm">
             <thead>
               <tr class="bg-gray-100">
@@ -85,14 +85,15 @@ import Chart from 'chart.js/auto'
 export default {
   props: ['card'],
 
-  data() {
+ data() {
     return {
-      activeFilter: 'rating',
-      chartInstance: null,
-      selectedProducts: [],
-      selectedRating: null,
+        activeFilter: 'rating',
+        chartInstance: null,
+        selectedProducts: [],
+        selectedRating: null,
+        selectedLabel: null,
     }
-  },
+},
 
   mounted() {
     this.loadChart('rating')
@@ -131,14 +132,28 @@ export default {
         },
         options: {
           responsive: true,
-          onClick: (event, elements) => {
-            if (elements.length > 0 && this.activeFilter === 'rating') {
-              const index = elements[0].index
-              const label = data.labels[index]
-              const rating = parseInt(label)
-              this.fetchProducts(rating)
+        onClick: (event, elements) => {
+    if (elements.length > 0) {
+        const index = elements[0].index
+        const label = data.labels[index]
+
+        if (this.activeFilter === 'rating') {
+            const rating = parseInt(label)
+            this.fetchProductsByRating(rating)
+        } else if (this.activeFilter === 'stock') {
+            if (label.includes('High')) {
+                this.fetchProductsByStock('high')
+            } else if (label.includes('Low')) {
+                this.fetchProductsByStock('low')
+            } else {
+                this.fetchProductsByStock('out')
             }
-          },
+        } else if (this.activeFilter === 'top_rated') {
+            const rating = parseInt(label)
+            this.fetchProductsByTopRated(rating)
+        }
+    }
+},
           plugins: {
             legend: {
               position: 'bottom',
@@ -148,12 +163,28 @@ export default {
       })
     },
 
-    async fetchProducts(rating) {
-      this.selectedRating = rating
-      const response = await fetch(`/api/products-by-rating?rating=${rating}`)
-      const data = await response.json()
-      this.selectedProducts = data.products
-    },
+    async fetchProductsByRating(rating) {
+    this.selectedRating = rating
+    this.selectedLabel = rating + ' Star'
+    const response = await fetch(`/api/products-by-rating?rating=${rating}`)
+    const data = await response.json()
+    this.selectedProducts = data.products
+},
+
+async fetchProductsByStock(level) {
+    const response = await fetch(`/api/products-by-stock?level=${level}`)
+    const data = await response.json()
+    this.selectedLabel = data.label
+    this.selectedProducts = data.products
+},
+
+async fetchProductsByTopRated(rating) {
+    this.selectedRating = rating
+    this.selectedLabel = rating + ' Star'
+    const response = await fetch(`/api/products-by-top-rated?rating=${rating}`)
+    const data = await response.json()
+    this.selectedProducts = data.products
+},
   },
 }
 </script>
