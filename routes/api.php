@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 
+use App\Http\Controllers\ChartDataController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,3 +28,5 @@ Route::get('/product-stats', function () {
         'totalValue'    => Product::sum('price'),
     ]);
 });
+
+Route::get('/chart-data', [ChartDataController::class, 'index']);
