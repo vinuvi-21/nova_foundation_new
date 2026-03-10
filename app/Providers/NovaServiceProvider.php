@@ -27,6 +27,14 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Nova::serving(function () {
+            Nova::script('image-preview-field', __DIR__.'/../../nova-components/ImagePreviewField/dist/js/field.js');
+            Nova::style('image-preview-field', __DIR__.'/../../nova-components/ImagePreviewField/dist/css/field.css');
+            Nova::script('star-rating-field', __DIR__.'/../../nova-components/StarRatingField/dist/js/field.js');
+            Nova::style('star-rating-field', __DIR__.'/../../nova-components/StarRatingField/dist/css/field.css');
+ 
+});
         Nova::withBreadcrumbs();
         $this->getCustomeMenu();
 
