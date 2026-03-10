@@ -58,4 +58,18 @@ class ChartDataController extends Controller
             'data'   => $data->pluck('total')->toArray(),
         ]);
     }
+
+    public function productsByRating(Request $request)
+{
+    $rating = $request->query('rating', 0);
+
+    $products = Product::where('rating', $rating)
+        ->select('id', 'name', 'price', 'stock', 'rating')
+        ->get();
+
+    return response()->json([
+        'products' => $products,
+        'rating'   => $rating,
+    ]);
+}
 }

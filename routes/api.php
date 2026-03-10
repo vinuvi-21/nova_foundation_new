@@ -30,3 +30,4 @@ Route::get('/product-stats', function () {
 });
 
 Route::get('/chart-data', [ChartDataController::class, 'index']);
+Route::get('/products-by-rating', [ChartDataController::class, 'productsByRating']);
