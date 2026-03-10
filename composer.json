@@ -19,9 +19,9 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
         "pktharindu/nova-permissions": "^3.0",
+        "vendor/image-preview-field": "@dev",
         "user/product-stats": "@dev",
-        "user/color-picker": "@dev",
-        "user/reports": "@dev"
+        "vendor/star-rating-field": "@dev"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -86,11 +86,15 @@
         },
         {
             "type": "path",
-            "url": "./nova-components/ColorPicker"
+            "url": "./nova-components/Reports"
         },
         {
             "type": "path",
-            "url": "./nova-components/Reports"
+            "url": "./nova-components/ImagePreviewField"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/StarRatingField"
         }
     ]
 }
