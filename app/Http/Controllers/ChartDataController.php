@@ -72,4 +72,45 @@ class ChartDataController extends Controller
         'rating'   => $rating,
     ]);
 }
+
+public function productsByStock(Request $request)
+{
+    $level = $request->query('level', 'high');
+
+    if ($level === 'high') {
+        $products = Product::where('stock', '>', 100)
+            ->select('id', 'name', 'price', 'stock', 'rating')
+            ->get();
+        $label = 'High Stock (>100)';
+    } elseif ($level === 'low') {
+        $products = Product::whereBetween('stock', [10, 100])
+            ->select('id', 'name', 'price', 'stock', 'rating')
+            ->get();
+        $label = 'Low Stock (10-100)';
+    } else {
+        $products = Product::where('stock', '<', 10)
+            ->select('id', 'name', 'price', 'stock', 'rating')
+            ->get();
+        $label = 'Out of Stock (<10)';
+    }
+
+    return response()->json([
+        'products' => $products,
+        'label'    => $label,
+    ]);
+}
+
+public function productsByTopRated(Request $request)
+{
+    $rating = $request->query('rating', 4);
+
+    $products = Product::where('rating', $rating)
+        ->select('id', 'name', 'price', 'stock', 'rating')
+        ->get();
+
+    return response()->json([
+        'products' => $products,
+        'rating'   => $rating,
+    ]);
+}
 }

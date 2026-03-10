@@ -31,3 +31,6 @@ Route::get('/product-stats', function () {
 
 Route::get('/chart-data', [ChartDataController::class, 'index']);
 Route::get('/products-by-rating', [ChartDataController::class, 'productsByRating']);
+
+Route::get('/products-by-stock', [ChartDataController::class, 'productsByStock']);
+Route::get('/products-by-top-rated', [ChartDataController::class, 'productsByTopRated']);
