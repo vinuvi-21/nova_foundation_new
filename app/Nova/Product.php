@@ -10,6 +10,10 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\Number;
 
+use App\Nova\Actions\ExportProduct;
+use Vendor\ImagePreviewField\ImagePreviewField;
+use Vendor\StarRatingField\StarRatingField;
+
 class Product extends Resource
 {
     /**
@@ -33,6 +37,10 @@ class Product extends Resource
      */
     public static $search = [
         'id',
+        'name',
+        'description',
+        'price',
+        'stock'
     ];
 
     /**
@@ -48,9 +56,25 @@ class Product extends Resource
             Text::make('name')->sortable()->rules('required'),
             Text::make('description')->sortable()->rules('required'),
             Number::make('price')->rules('required'),
-            Number::make('stock')->rules('required')
+            Number::make('stock')->rules('required'),
+            ImagePreviewField::make('Image'),
+            StarRatingField::make('Rating')->maxStars(5),
         ];
     }
+
+  public static function fill(NovaRequest $request, $model)
+{
+    [$model, $callbacks] = parent::fill($request, $model);
+
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('products', 'public');
+        $model->image = $path;
+        $model->save();
+    }
+
+    return [$model, $callbacks];
+}
+
 
     /**
      * Get the cards available for the request.
@@ -93,6 +117,9 @@ class Product extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+       
+    return [
+        new ExportProduct(),
+    ];
     }
 }
