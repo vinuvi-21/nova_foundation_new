@@ -13,28 +13,66 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var chart_js_auto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! chart.js/auto */ "./node_modules/chart.js/auto/auto.js");
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['card'],
+  data: function data() {
+    return {
+      activeFilter: 'rating',
+      chartInstance: null
+    };
+  },
   mounted: function mounted() {
-    new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"](this.$refs.chart, {
-      type: 'pie',
-      data: {
-        labels: this.card.labels,
-        datasets: [{
-          data: this.card.ratings,
-          backgroundColor: ['#d3d3d3', '#ff6384', '#ff9f40', '#ffcd56', '#4bc0c0', '#36a2eb']
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'bottom'
+    this.loadChart('rating');
+  },
+  methods: {
+    loadChart: function loadChart(filter) {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var response, data;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              _this.activeFilter = filter;
+              _context.n = 1;
+              return fetch("/api/chart-data?filter=".concat(filter));
+            case 1:
+              response = _context.v;
+              _context.n = 2;
+              return response.json();
+            case 2:
+              data = _context.v;
+              if (_this.chartInstance) {
+                _this.chartInstance.destroy();
+              }
+              _this.chartInstance = new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"](_this.$refs.chart, {
+                type: 'pie',
+                data: {
+                  labels: data.labels,
+                  datasets: [{
+                    data: data.data,
+                    backgroundColor: ['#ff6384', '#ff9f40', '#ffcd56', '#4bc0c0', '#36a2eb', '#9966ff']
+                  }]
+                },
+                options: {
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      position: 'bottom'
+                    }
+                  }
+                }
+              });
+            case 3:
+              return _context.a(2);
           }
-        }
-      }
-    });
+        }, _callee);
+      }))();
+    }
   }
 });
 
@@ -57,6 +95,9 @@ var _hoisted_1 = {
   "class": "px-3 py-3 w-full"
 };
 var _hoisted_2 = {
+  "class": "flex justify-center mb-4 gap-2"
+};
+var _hoisted_3 = {
   ref: "chart"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -65,9 +106,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "flex flex-col items-center justify-center p-4"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Title "), _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
         "class": "text-center text-xl text-gray-500 font-light mb-4"
-      }, " Products by Rating ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("canvas", _hoisted_2, null, 512 /* NEED_PATCH */)])];
+      }, " Product Chart ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Filter Buttons "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        onClick: _cache[0] || (_cache[0] = function ($event) {
+          return $options.loadChart('rating');
+        }),
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$data.activeFilter === 'rating' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700', "px-3 py-1 rounded text-sm font-medium"])
+      }, " By Rating ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        onClick: _cache[1] || (_cache[1] = function ($event) {
+          return $options.loadChart('stock');
+        }),
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$data.activeFilter === 'stock' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700', "px-3 py-1 rounded text-sm font-medium"])
+      }, " By Stock Level ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        onClick: _cache[2] || (_cache[2] = function ($event) {
+          return $options.loadChart('top_rated');
+        }),
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$data.activeFilter === 'top_rated' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700', "px-3 py-1 rounded text-sm font-medium"])
+      }, " Top Rated ", 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Chart "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("canvas", _hoisted_3, null, 512 /* NEED_PATCH */)])];
     }),
     _: 1 /* STABLE */
   });
