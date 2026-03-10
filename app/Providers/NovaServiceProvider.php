@@ -33,6 +33,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             Nova::style('image-preview-field', __DIR__.'/../../nova-components/ImagePreviewField/dist/css/field.css');
             Nova::script('star-rating-field', __DIR__.'/../../nova-components/StarRatingField/dist/js/field.js');
             Nova::style('star-rating-field', __DIR__.'/../../nova-components/StarRatingField/dist/css/field.css');
+            Nova::script('rating-chart', __DIR__.'/../../nova-components/RatingChart/dist/js/card.js');
+            Nova::style('rating-chart', __DIR__.'/../../nova-components/RatingChart/dist/css/card.css');
  
 });
         Nova::withBreadcrumbs();

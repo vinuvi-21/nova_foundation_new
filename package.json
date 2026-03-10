@@ -23,7 +23,9 @@
         "build-image-preview-field": "cd nova-components/ImagePreviewField && npm run dev",
         "build-image-preview-field-prod": "cd nova-components/ImagePreviewField && npm run prod",
         "build-star-rating-field": "cd nova-components/StarRatingField && npm run dev",
-        "build-star-rating-field-prod": "cd nova-components/StarRatingField && npm run prod"
+        "build-star-rating-field-prod": "cd nova-components/StarRatingField && npm run prod",
+        "build-rating-chart": "cd nova-components/RatingChart && npm run dev",
+        "build-rating-chart-prod": "cd nova-components/RatingChart && npm run prod"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",

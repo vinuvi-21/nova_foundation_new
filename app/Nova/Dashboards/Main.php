@@ -4,6 +4,7 @@ namespace App\Nova\Dashboards;
 
 use Laravel\Nova\Dashboard;
 use User\ProductStats\ProductStats;
+use Vendor\RatingChart\RatingChart;
 
 class Main extends Dashboard
 {
@@ -11,6 +12,9 @@ class Main extends Dashboard
     {
         return [
             new ProductStats(),
+            new RatingChart(),
         ];
     }
+
+  
 }

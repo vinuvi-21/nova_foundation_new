@@ -21,7 +21,8 @@
         "pktharindu/nova-permissions": "^3.0",
         "vendor/image-preview-field": "@dev",
         "user/product-stats": "@dev",
-        "vendor/star-rating-field": "@dev"
+        "vendor/star-rating-field": "@dev",
+        "vendor/rating-chart": "@dev"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -95,6 +96,10 @@
         {
             "type": "path",
             "url": "./nova-components/StarRatingField"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/RatingChart"
         }
     ]
 }
