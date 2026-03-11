@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Number;
 use App\Nova\Actions\ExportProduct;
 use Vendor\ImagePreviewField\ImagePreviewField;
 use Vendor\StarRatingField\StarRatingField;
+use App\Nova\Filters\ProductCategory;
 
 class Product extends Resource
 {
@@ -95,7 +96,9 @@ class Product extends Resource
      */
     public function filters(NovaRequest $request)
     {
-        return [];
+        return [
+        new ProductCategory(),  
+    ];
     }
 
     /**
@@ -119,6 +122,9 @@ public function actions(NovaRequest $request)
 {
     return [
         (new ExportProduct)->standalone()->showOnIndex()->showOnDetail(),
+         
     ];
 }
+
+ 
 }
