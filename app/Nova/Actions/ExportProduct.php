@@ -2,6 +2,7 @@
 
 namespace App\Nova\Actions;
 
+use App\Models\Product;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
@@ -13,23 +14,33 @@ class ExportProduct extends Action
 {
     use InteractsWithQueue, Queueable;
 
-    public $name = 'Export Products to CSV';
+    public $name = '⬇ Export Products to CSV';
+    public $standalone = true;
 
     public function handle(ActionFields $fields, Collection $models)
     {
-        // Step 1: CSV headers matching your columns
+        
+        $products = Product::all();
+        if ($products->isEmpty()) {
+        return Action::danger('No products found to export!');
+    }
+
         $csvContent = "ID,Name,Description,Price,Stock,Created At\n";
 
-        // Step 2: Loop through selected products
-        foreach ($models as $product) {
-            // Step 3: Add each product as a line
-            $csvContent .= "{$product->id},{$product->name},{$product->description},{$product->price},{$product->stock},{$product->created_at}\n";
+        foreach ($products as $product) {
+            
+            $csvContent .= "\"{$product->id}\","
+                . "\"{$product->name}\","
+                . "\"{$product->description}\","
+                . "\"{$product->price}\","
+                . "\"{$product->stock}\","
+                . "\"{$product->created_at}\"\n";
         }
 
-        // Step 4: Download the file
+        // Step 3: Download the file
         return Action::download(
             'data:text/csv;base64,' . base64_encode($csvContent),
-            'products.csv'
+            'products_' . now()->format('Y_m_d') . '.csv'
         );
     }
 
