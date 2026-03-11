@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Badge;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
+
 class Supplier extends Resource
 {
     public static $model = \App\Models\Supplier::class;
@@ -57,6 +58,20 @@ class Supplier extends Resource
                 'active'   => 'success',
                 'inactive' => 'danger',
             ]),
+
+                    Select::make('Category')
+                        ->options([
+                            'Electronics'            => 'Electronics',
+                            'Furniture'              => 'Furniture',
+                            'Kitchen'                => 'Kitchen',
+                            'Sports & Fitness'       => 'Sports & Fitness',
+                            'Books & Stationery'     => 'Books & Stationery',
+                            'Clothing & Accessories' => 'Clothing & Accessories',
+                            'Health & Beauty'        => 'Health & Beauty',
+                            'Outdoor & Garden'       => 'Outdoor & Garden',
+                        ])
+            ->rules('required')
+            ->sortable(),
 
              
             HasMany::make('Products'),
