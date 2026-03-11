@@ -16,6 +16,7 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
 use App\Nova\Product;
+use App\Nova\Supplier;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -140,6 +141,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 MenuSection::make('Products', [
     MenuGroup::make('All Products', [
         MenuItem::resource(Product::class)->icon('shopping-cart'),
+    ]),
+    MenuGroup::make('All Suppliers', [
+        MenuItem::resource(Supplier::class)->icon('truck'),  
     ]),
 ])->icon('shopping-cart'),
 
