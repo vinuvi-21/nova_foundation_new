@@ -115,11 +115,10 @@ class Product extends Resource
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function actions(NovaRequest $request)
-    {
-       
+public function actions(NovaRequest $request)
+{
     return [
-        new ExportProduct(),
+        (new ExportProduct)->standalone()->showOnIndex()->showOnDetail(),
     ];
-    }
+}
 }
