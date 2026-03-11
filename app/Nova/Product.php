@@ -15,6 +15,8 @@ use Vendor\ImagePreviewField\ImagePreviewField;
 use Vendor\StarRatingField\StarRatingField;
 use App\Nova\Filters\ProductCategory;
 
+use Laravel\Nova\Fields\BelongsTo;
+
 class Product extends Resource
 {
     /**
@@ -60,6 +62,7 @@ class Product extends Resource
             Number::make('stock')->rules('required'),
             ImagePreviewField::make('Image'),
             StarRatingField::make('Rating')->maxStars(5),
+            BelongsTo::make('Supplier')->nullable(),
         ];
     }
 
