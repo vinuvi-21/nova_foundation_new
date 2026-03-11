@@ -16,4 +16,9 @@ class Product extends Model
         'image',
         'rating'
     ];
+
+    public function supplier()
+{
+    return $this->belongsTo(Supplier::class);
+}
 }
